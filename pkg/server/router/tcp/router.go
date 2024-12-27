@@ -295,7 +295,7 @@ func (r *Router) SetHTTPSForwarder(handler tcp.Handler) {
 		}
 
 		rule := "HostSNI(`" + sniHost + "`)"
-		if strings.Count(sniHost, "*") > 0 {
+		if sniHost != "*" && strings.Count(sniHost, "*") > 0 {
 			sniHost = strings.Replace(regexp.QuoteMeta(sniHost), `\*\.`, `[a-z0-9-\.]+\.`, 1)
 			rule = fmt.Sprintf("HostSNIRegexp(`^%s$`)", sniHost)
 		}
